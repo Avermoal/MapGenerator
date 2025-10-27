@@ -9,7 +9,7 @@ enum APP_EXIT_CODE {
   APP_FAILURE
 };
 
-APP_EXIT_CODE startapp();
+enum APP_EXIT_CODE startapp();
 
 
 #endif/*APPLICATION_H*/

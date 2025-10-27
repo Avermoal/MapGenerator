@@ -1,0 +1,11 @@
+#ifndef EXIT_CODE_H
+#define EXIT_CODE_H
+
+enum EXIT_CODE_H {
+  EXIT_SUCCESS = 0,
+  EXIT_FAILURE,
+  EXIT_CRITICAL
+};
+
+
+#endif/*EXIT_CODE_H*/
