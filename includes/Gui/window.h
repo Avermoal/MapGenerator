@@ -3,10 +3,10 @@
 
 #include "exit_code.h"
 
-struct GtkWidget;
+struct _GtkWidget;
 
 typedef struct {
-  GtkWidget *win;
+  struct _GtkWidget *win;
   int width;
   int height;
   int ismax;
@@ -15,5 +15,7 @@ typedef struct {
 enum EXIT_CODE createwindow(window_t *win);
 
 enum EXIT_CODE destroywindow(window_t *win);
+
+void onupdate(window_t *win);
 
 #endif/*GUI_WINDOW_H*/
