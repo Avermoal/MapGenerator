@@ -2,11 +2,13 @@
 #define GUI_WINDOW_H
 
 #include "exit_code.h"
+#include "Gui/interface.h"
 
 struct _GtkWidget;
 
 typedef struct {
   struct _GtkWidget *win;
+  interface_t interface;
   int width;
   int height;
   int ismax;
