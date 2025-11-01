@@ -8,6 +8,7 @@ struct _GtkWidget;
 
 typedef struct {
   struct _GtkWidget *win;
+  struct _GtkWidget *container;
   interface_t interface;
   int width;
   int height;

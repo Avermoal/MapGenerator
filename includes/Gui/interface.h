@@ -12,4 +12,6 @@ typedef struct{
 
 enum EXIT_CODE initinterface(interface_t *interface);
 
+void addinterface(interface_t *interface, struct _GtkWidget *container);
+
 #endif/*GUI_INTERFACE_H*/

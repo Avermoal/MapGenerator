@@ -2,9 +2,10 @@
 
 #include <gtk/gtk.h>
 
+/*Callback*/
 static gboolean on_window_close(GtkWidget *win, gpointer userdata)
 {
-  if(win){  
+  if(win){
     gtk_window_destroy(GTK_WINDOW(win));
     win = NULL;
   }
@@ -26,10 +27,17 @@ enum EXIT_CODE createwindow(window_t *win)
   gtk_window_set_title(GTK_WINDOW(window), "Map Generator");
   gtk_window_set_default_size(GTK_WINDOW(window), win->width, win->height);
   gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
-  /*GTK callback*/
+  /*GTK callback add*/
   g_signal_connect(window, "close-request", G_CALLBACK(on_window_close), NULL);
-  /*Set current window*/
-  gtk_window_present(GTK_WINDOW(window));
+  /*Init container*/
+  GtkWidget *container = gtk_fixed_new();
+  if(!container){
+    destroywindow(win);
+    return EXIT_CODE_CRITICAL;
+  }
+  win->container = container;
+  gtk_widget_set_size_request(container, 400, 300);
+  gtk_window_set_child(GTK_WINDOW(window), container);
   /*Interface init*/
   interface_t interface;
   if(initinterface(&interface) != EXIT_CODE_SUCCESS){
@@ -37,6 +45,9 @@ enum EXIT_CODE createwindow(window_t *win)
     return EXIT_CODE_CRITICAL;
   }
   win->interface = interface;
+  
+  /*Set current window*/
+  gtk_window_present(GTK_WINDOW(window));
 
   return EXIT_CODE_SUCCESS;
 }
