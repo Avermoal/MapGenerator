@@ -18,8 +18,8 @@ enum EXIT_CODE initinterface(interface_t *interface)
   }
   gtk_widget_set_size_request(interface->settingsspace, interface->s_width, interface->s_height);
   /*Fill interface settings space*/
-  if(fill_settings_space(interface->settingsspace) != EXIT_CODE_SUCCESS){
-    return EXIT_CODE_CRITICAL
+  if(fill_settings_space(interface->settingsspace, &interface->settings) != EXIT_CODE_SUCCESS){
+    return EXIT_CODE_CRITICAL;
   }
   return EXIT_CODE_SUCCESS;
 }
@@ -38,10 +38,30 @@ void destroyinterface(interface_t *interface)
     g_object_unref(interface->settingsspace);
     g_clear_object(&interface->mapspace);
     g_clear_object(&interface->settingsspace);
+    clear_settings_space(&interface->settings);
   }
 }
 
-enum EXIT_CODE fill_settings_space(GtkWidget *settingsspace)
+enum EXIT_CODE fill_settings_space(GtkWidget *settingsspace, settings_t *settings)
 {
-  
+  settings->redrawmap = gtk_button_new_with_label("Redraw map");
+  settings->seedentry = gtk_entry_new();
+  gtk_box_append(GTK_BOX(settingsspace), settings->seedentry);
+  gtk_box_append(GTK_BOX(settingsspace), settings->redrawmap);
+  return EXIT_CODE_SUCCESS;
+}
+
+void clear_settings_space(settings_t *settings)
+{
+  if(settings){
+    g_object_unref(settings->redrawmap);
+    g_object_unref(settings->seedentry);
+    g_clear_object(settings->redrawmap);
+    g_clear_object(settings->seedentry);
+  }
+}
+
+void drawmap(GtkWidget *mapspace)
+{
+
 }
