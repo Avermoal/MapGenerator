@@ -23,7 +23,6 @@ enum EXIT_CODE createwindow(window_t *win)
   /*Set window parametrs*/
   win->width = 800;
   win->height = 700;
-  win->ismax = 0;
   gtk_window_set_title(GTK_WINDOW(window), "Map Generator");
   gtk_window_set_default_size(GTK_WINDOW(window), win->width, win->height);
   gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
@@ -36,19 +35,23 @@ enum EXIT_CODE createwindow(window_t *win)
     return EXIT_CODE_CRITICAL;
   }
   win->container = container;
-  gtk_widget_set_size_request(container, 400, 300);
+  gtk_widget_set_size_request(container, win->width, win->height);
   gtk_window_set_child(GTK_WINDOW(window), container);
   /*Interface init*/
   interface_t interface;
+  interface.m_width = win->width - win->width/4;
+  interface.m_height = win->height;
+  interface.s_width = win->width/4;
+  interface.s_height = win->height;
   if(initinterface(&interface) != EXIT_CODE_SUCCESS){
     destroywindow(win);
     return EXIT_CODE_CRITICAL;
   }
   win->interface = interface;
-  
+  /*Add interface to main window context*/
+  addinterface(&interface, win->container, win->width);
   /*Set current window*/
   gtk_window_present(GTK_WINDOW(window));
-
   return EXIT_CODE_SUCCESS;
 }
 
@@ -58,6 +61,7 @@ enum EXIT_CODE destroywindow(window_t *win)
     gtk_window_destroy(GTK_WINDOW(win->win));
     win->win = NULL;
   }
+  destroyinterface(&win->interface);
   return EXIT_CODE_SUCCESS;
 }
 
@@ -66,3 +70,4 @@ void onupdate(window_t *win)
 {
   g_main_context_iteration(NULL, TRUE);
 }
+

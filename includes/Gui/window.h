@@ -8,11 +8,10 @@ struct _GtkWidget;
 
 typedef struct {
   struct _GtkWidget *win;
-  struct _GtkWidget *container;
+  struct _GtkWidget *container;/*GtkFixed*/
   interface_t interface;
   int width;
   int height;
-  int ismax;
 }window_t;
 
 enum EXIT_CODE createwindow(window_t *win);
