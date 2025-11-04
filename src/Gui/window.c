@@ -38,18 +38,16 @@ enum EXIT_CODE createwindow(window_t *win)
   gtk_widget_set_size_request(container, win->width, win->height);
   gtk_window_set_child(GTK_WINDOW(window), container);
   /*Interface init*/
-  interface_t interface;
-  interface.m_width = win->width - win->width/4;
-  interface.m_height = win->height;
-  interface.s_width = win->width/4;
-  interface.s_height = win->height;
-  if(initinterface(&interface) != EXIT_CODE_SUCCESS){
+  win->interface.m_width = win->width - win->width/4;
+  win->interface.m_height = win->height;
+  win->interface.s_width = win->width/4;
+  win->interface.s_height = win->height;
+  if(initinterface(&win->interface) != EXIT_CODE_SUCCESS){
     destroywindow(win);
     return EXIT_CODE_CRITICAL;
   }
-  win->interface = interface;
   /*Add interface to main window context*/
-  addinterface(&interface, win->container, win->width);
+  addinterface(&win->interface, win->container, win->width);
   /*Set current window*/
   gtk_window_present(GTK_WINDOW(window));
   return EXIT_CODE_SUCCESS;
