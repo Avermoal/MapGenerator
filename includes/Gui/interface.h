@@ -29,7 +29,4 @@ enum EXIT_CODE fill_settings_space(struct _GtkWidget *settingspace, settings_t *
 
 void clear_settings_space(settings_t *settings);
 
-/*Map space*/
-void drawmap(struct _GtkWidget *mapspace, const char *seed);
-
 #endif/*GUI_INTERFACE_H*/

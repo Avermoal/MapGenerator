@@ -25,7 +25,7 @@ enum EXIT_CODE createwindow(window_t *win)
   win->height = 700;
   gtk_window_set_title(GTK_WINDOW(window), "Map Generator");
   gtk_window_set_default_size(GTK_WINDOW(window), win->width, win->height);
-  gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
+  gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
   /*GTK callback add*/
   g_signal_connect(window, "close-request", G_CALLBACK(on_window_close), NULL);
   /*Init container*/
