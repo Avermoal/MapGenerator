@@ -37,7 +37,7 @@ float perlin1D(float param)
   float g0 = grad(perm[xi0], xf0);
   float g1 = grad(perm[xi1], xf1);
   /*Fading*/
-  float u = fade(xf0);
+  float u = fade(xf1);
   /*Interpalation*/
   return lerp(u, g0, g1);
 }

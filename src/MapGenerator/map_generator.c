@@ -13,9 +13,10 @@ void generatemap(const char *seed, unsigned char **data, int height, int width)
   /*Perlin noise init*/
   initperlin(seed);
   /*The coastline creation*/
-  for(int i = 0; i < height; ++i){
-    for(int j = 0; j < width; ++j){
-      (*data)[i*j+j] = PIXEL_WHITE;
+  for(int t = 0; t < height*width; ++t){
+   if(1){
+    (*data)[t] = PIXEL_WHITE*perlin1D(t/10);
     }
   }
+  
 }

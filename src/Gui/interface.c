@@ -8,7 +8,7 @@
 
 #include "Gui/draw.h"
 
-#define COEFF_EXPANTION 10
+#define COEFF_EXPANTION 1
 
 static void on_draw(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer userdata)/*userdata = const char**/
 {
