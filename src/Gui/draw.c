@@ -11,7 +11,7 @@
 
 #define FILE_END_NAME 5 /*.png\0*/
 
-const char* create_png(const char *seed, int width, int height)
+char* create_png(const char *seed, int width, int height)
 {
   const int channels = 1;
   const unsigned long datasize = (unsigned long)(width)*(unsigned long)(height)*(unsigned long)(channels);

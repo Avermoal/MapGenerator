@@ -21,10 +21,11 @@ static void on_draw(GtkDrawingArea *area, cairo_t *cr, int width, int height, gp
     return;
   }
   /*Cairo create surfece*/
-  const char *filename = create_png(seed, width*COEFF_EXPANTION, width*COEFF_EXPANTION);
+  char *filename = create_png(seed, width*COEFF_EXPANTION, width*COEFF_EXPANTION);
   cairo_surface_t *surf = cairo_image_surface_create_from_png(filename);
   if(cairo_surface_status(surf) != CAIRO_STATUS_SUCCESS){
     g_error("Failed to create surface from image\n");
+    free(filename);
     return;
   }
   image_height = image_width = cairo_image_surface_get_width(surf);
@@ -43,6 +44,7 @@ static void on_draw(GtkDrawingArea *area, cairo_t *cr, int width, int height, gp
   cairo_restore(cr);
   /*Surface destroying*/
   cairo_surface_destroy(surf);
+  free(filename);
 }
 
 static void on_redraw_map_clicked(GtkWidget *button, gpointer userdata)/*userdata = mapspace*/
