@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "../external/stbi/stb_image_write.h"
+#include "stbi/stb_image_write.h"
 
 #include "MapGenerator/map_generator.h"
 
@@ -37,21 +37,13 @@ const char* create_png(const char *seed, int width, int height)
     return NULL;
   }
   /*MAP GENERATION*/
-  generatemap(seed, data, datasize);
+  generatemap(seed, &data, height, width);
   /*Write png*/
   if(!stbi_write_png(filename, width, height, channels, data, width*channels)){
     fprintf(stderr, "Image save error\n");
     free(filename);
     return NULL;
   }
-  /*Output file init*/
-  FILE *out = fopen(filename, "wb");
-  if(!out){
-    free(filename);
-    free(data);
-    return NULL;
-  }
-  fclose(out);
   free(data);
   printf("%s\n", filename);
   return filename;

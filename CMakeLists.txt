@@ -5,8 +5,6 @@ project(MapGenerator)
 set(CMAKE_C_STANDARD 23)
 
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK4 REQUIRED IMPORTED_TARGET gtk4)
 
 file(GLOB SOURCES 
   "src/*.c"
@@ -18,14 +16,19 @@ file(GLOB HEADERS
   "includes/MapGenerator/*.h")
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
-target_include_directories(${PROJECT_NAME} PRIVATE includes)
+target_include_directories(${PROJECT_NAME} PRIVATE
+  includes
+  src
+  external)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK4 REQUIRED IMPORTED_TARGET gtk4)
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${GTK4_INCLUDE_DIRS})
 target_link_directories(${PROJECT_NAME} PRIVATE ${GTK4_LIBRARY_DIRS})
 target_link_libraries(${PROJECT_NAME} ${GTK4_LIBRARIES})
 
+target_link_libraries(${PROJECT_NAME} m)
+
 target_compile_options(${PROJECT_NAME} PRIVATE ${GTK4_CFLAGS_OTHER})
 
-target_link_libraries(${PROJECT_NAME} ${JPEG_LIBRARIES})
-target_include_directories(${PROJECT_NAME} PRIVATE ${JPEG_INCLUDE_DIRS})

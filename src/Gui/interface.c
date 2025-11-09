@@ -17,15 +17,14 @@ static void on_draw(GtkDrawingArea *area, cairo_t *cr, int width, int height, gp
   GtkWidget *seedentry = (GtkWidget*)userdata;
   const char *seed = gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(seedentry)));
   if(strlen(seed) == 0){
-    g_error("Seed don't obtained");
+    g_error("Seed don't obtained\n");
     return;
   }
   /*Cairo create surfece*/
   const char *filename = create_png(seed, width*COEFF_EXPANTION, width*COEFF_EXPANTION);
   cairo_surface_t *surf = cairo_image_surface_create_from_png(filename);
   if(cairo_surface_status(surf) != CAIRO_STATUS_SUCCESS){
-    g_error("Failed to create surface from image file with name ");
-    printf("%s\n", filename);
+    g_error("Failed to create surface from image\n");
     return;
   }
   image_height = image_width = cairo_image_surface_get_width(surf);
@@ -74,7 +73,7 @@ enum EXIT_CODE initinterface(interface_t *interface)
     return EXIT_CODE_CRITICAL;
   }
   /*Seed setup*/
-  gtk_editable_set_text(GTK_EDITABLE(interface->settings.seedentry), "Avermoal");
+  gtk_editable_set_text(GTK_EDITABLE(interface->settings.seedentry), "Only numbers");
   /*Map draw callbacks*/
   g_signal_connect(interface->settings.redrawmap, "clicked", G_CALLBACK(on_redraw_map_clicked), interface->mapspace);
   gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(interface->mapspace), on_draw, interface->settings.seedentry, NULL);
